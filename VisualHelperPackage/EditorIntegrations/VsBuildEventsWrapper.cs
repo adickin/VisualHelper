@@ -16,15 +16,31 @@ namespace VisualHelperPackage.EditorIntegrations
       public event EventHandler BuildStarted;
       public event EventHandler BuildFinished;
 
+      public event EventHandler ProjectBuildFinished;
+
       public VsBuildEventsWrapper(
          BuildEvents vsBuildEvents )
       {
          vsBuildEvents_ = vsBuildEvents;
 
+         vsBuildEvents_.OnBuildProjConfigDone += VsBuildEvents__OnBuildProjConfigDone;
+
          vsBuildEvents_.OnBuildBegin += VsBuildEvents__OnBuildBegin;
          vsBuildEvents_.OnBuildDone += VsBuildEvents__OnBuildDone;
+
       }
 
+      private void VsBuildEvents__OnBuildProjConfigDone(
+         string Project, 
+         string ProjectConfig, 
+         string Platform, 
+         string SolutionConfig, 
+         bool Success)
+      {
+         ProjectBuildFinished(this, new ProjectBuildEventArgs(
+            Project,
+            Success));
+      }
 
       private void VsBuildEvents__OnBuildBegin(vsBuildScope Scope, vsBuildAction Action)
       {

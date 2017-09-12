@@ -8,6 +8,6 @@ namespace VisualHelper.EditorIntegrations
 {
    public interface IToastNotifier
    {
-      void ShowToast(string notificationMessage);
+      void ShowToast(bool positiveNotification, string notificationMessage);
    }
 }
