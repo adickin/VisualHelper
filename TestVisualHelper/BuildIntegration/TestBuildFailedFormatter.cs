@@ -34,38 +34,35 @@ namespace TestVisualHelper.BuildIntegration
       [Test]
       public void WillFormatBuildFailedListCorrectly()
       {
-         //string path = RandomPath.Generate(1);
-         //string projectName = RandomString.Generate(2);
-         //string failedProject = Path.Combine(path, projectName + ".csproj");
-         //List<string> failedProjects = new List<string>();
-         //failedProjects.Add(failedProject);
-         List<string> failedProjects = GenerateFailedProjectList();
+         var failedProjects = GenerateFailedProjectList();
 
-         string output = patient_.FormatFailedBuild(failedProjects);
+         string output = patient_.FormatFailedBuild(failedProjects.Item2);
 
-         Assert.AreEqual("", output);
+         Assert.AreEqual(ExpectedFailedBuildFormattedString(failedProjects.Item1), output);
       }
 
-      private string dkdk()
+      private string ExpectedFailedBuildFormattedString(List<string> projectNames)
       {
-         return "";
+         string failedNamesString = String.Join(", ", projectNames);
+
+         return "Projects Failed("+projectNames.Count+"): " + failedNamesString;
       }
 
-      //change function to return a object that contains the full paths as well as just the names.
-      //ADAM TODO
-      private List<string> GenerateFailedProjectList(int size = 3)
+      private Tuple<List<string>, List<string>> GenerateFailedProjectList(int size = 3)
       {
-         List<string> failedProjects = new List<string>();
+         List<string> failedProjectPaths = new List<string>();
+         List<string> failedProjectNames = new List<string>();
 
-         for(int i = 0; i < size; i++)
+         for (int i = 0; i < size; i++)
          {
             string path = RandomPath.Generate(i);
             string projectName = RandomString.Generate(i);
             string failedProject = Path.Combine(path, projectName + ".csproj");
-            failedProjects.Add(failedProject);
+            failedProjectPaths.Add(failedProject);
+            failedProjectNames.Add(projectName);
          }
 
-         return failedProjects;
+         return new Tuple<List<string>, List<string>>(failedProjectNames, failedProjectPaths);
       }
    }
 }
