@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using VisualHelper.EditorIntegrations;
 
-namespace VisualHelper.Core
+namespace VisualHelper.BuildIntegration
 {
 
    public class BuildEventNotifier
@@ -14,17 +14,19 @@ namespace VisualHelper.Core
 
       IVsBuildEvents buildEvents_;
       IToastNotifier toastNotifier_;
-
-      bool buildSuccesful_;
-      List<string> failedProjects_;
+      IBuildFailedFormatter buildFailedFormatter_;
+      BuildState buildState_;
 
       public BuildEventNotifier(
          IVsBuildEvents buildEvents,
-         IToastNotifier toastNotifier)
+         IToastNotifier toastNotifier,
+         IBuildFailedFormatter buildFailedFormatter,
+         BuildState buildState)
       {
          buildEvents_ = buildEvents;
          toastNotifier_ = toastNotifier;
-         failedProjects_ = new List<string>();
+         buildFailedFormatter_ = buildFailedFormatter;
+         buildState_ = buildState;
 
          buildEvents_.BuildStarted += BuildEvents__BuildStarted;
          buildEvents_.BuildFinished += BuildEvents_BuildFinished;
@@ -37,30 +39,27 @@ namespace VisualHelper.Core
          ProjectBuildEventArgs eventArgs = (ProjectBuildEventArgs) e;
          if (!eventArgs.BuildSuccess)
          {
-            failedProjects_.Add(eventArgs.Project);
-            buildSuccesful_ = false;
+            buildState_.AddFailedProject(eventArgs.Project);
+            buildState_.BuildSuccessful = false;
          }
       }
 
       private void BuildEvents__BuildStarted(object sender, EventArgs e)
       {
-         buildSuccesful_ = true;
-         failedProjects_.Clear();
+         buildState_.ClearState();
       }
 
       private void BuildEvents_BuildFinished(object sender, EventArgs e)
       {
-         if (buildSuccesful_)
+         if (buildState_.BuildSuccessful)
          {
             toastNotifier_.ShowToast(true, "Build Finished");
          }
          else
          {
-            string failedProjectsString = String.Join(", ", failedProjects_);
+            string buildFailedString = buildFailedFormatter_.FormatFailedBuild(buildState_.FailedProjects);
 
-            string buildFailedString = "Builds Failed(" + failedProjects_.Count + "): " + failedProjectsString;
-
-            toastNotifier_.ShowToast(false, buildFailedString);
+            toastNotifier_.ShowToast(false, "Build Failed" + buildFailedString);
          }
 
       }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VisualHelper.Core;
+using VisualHelper.BuildIntegration;
 using VisualHelper.EditorIntegrations;
 
 namespace VisualHelper.Container
@@ -12,14 +12,14 @@ namespace VisualHelper.Container
    {
       IVsIntegrationsContainer vsIntegrationsContainer_;
 
-      BuildEventNotifier buildEventNotifier_;
+      BuildIntegrationContainer buildIntegrationContainer_;
 
       public VisualHelperBusinessLogicContainer(
          IVsIntegrationsContainer vsIntegrationsContainer )
       {
          vsIntegrationsContainer_ = vsIntegrationsContainer;
 
-         buildEventNotifier_ = new BuildEventNotifier(
+         buildIntegrationContainer_ = new BuildIntegrationContainer(
             vsIntegrationsContainer_.VsBuildEvents(),
             vsIntegrationsContainer_.ToastNotifier());
       }
