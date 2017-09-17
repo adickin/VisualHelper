@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EnvDTE;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -13,7 +14,12 @@ namespace VisualHelperPackage.Notificatons
 {
    public class WindowsToastNotifications : IToastNotifier
    {
-      const string VISUAL_HELPER_NOTIFICATION = "Visual Helper Notification";
+      private DTE dteService_;
+
+      public WindowsToastNotifications(DTE dteService)
+      {
+         dteService_ = dteService;
+      }
 
       public void ShowToast(VisualHelperToastNotification notification)
       {
@@ -36,7 +42,13 @@ namespace VisualHelperPackage.Notificatons
          ToastNotification toast = new ToastNotification(toastXml);
          toast.ExpirationTime = System.DateTime.Now.AddMilliseconds(10000);
 
-         ToastNotificationManager.CreateToastNotifier(VISUAL_HELPER_NOTIFICATION).Show(toast);
+         string solutionName = GetSolutionName();
+         ToastNotificationManager.CreateToastNotifier(solutionName).Show(toast);
+      }
+
+      private string GetSolutionName()
+      {
+         return Path.GetFileNameWithoutExtension(dteService_.Solution.FullName);
       }
 
       private ToastTemplateType DetermineToastType(int numberOfLines)

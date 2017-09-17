@@ -16,8 +16,10 @@ namespace VisualHelperPackage.EditorIntegrations
       public VsIntegrationsContainer(
          VsServices visualStudioServices )
       {
-         buildEventsWrapper_ = new VsBuildEventsWrapper(visualStudioServices.VSBuildEvents);
-         toastNotifications_ = new WindowsToastNotifications();
+         buildEventsWrapper_ = new VsBuildEventsWrapper(
+            visualStudioServices.VSBuildEvents);
+         toastNotifications_ = new WindowsToastNotifications(
+            visualStudioServices.EnvDte);
       }
 
       public IVsBuildEvents VsBuildEvents()
