@@ -55,6 +55,7 @@
     <Compile Include="BuildIntegration\TestBuildEventNotifier.cs" />
     <Compile Include="BuildIntegration\TestBuildFailedFormatter.cs" />
     <Compile Include="BuildIntegration\TestBuildState.cs" />
+    <Compile Include="EditorIntegrations\TestVisualHelperToastNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Randoms\RandomPath.cs" />
     <Compile Include="Randoms\RandomString.cs" />

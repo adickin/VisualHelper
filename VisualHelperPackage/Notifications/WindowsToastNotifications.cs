@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Forms;
@@ -12,34 +13,21 @@ namespace VisualHelperPackage.Notificatons
 {
    public class WindowsToastNotifications : IToastNotifier
    {
-      const String VISUAL_HELPER_NOTIFICATION = "Visual Helper Notification";
+      const string VISUAL_HELPER_NOTIFICATION = "Visual Helper Notification";
 
-      private string GetImagePath(string image)
+      public void ShowToast(VisualHelperToastNotification notification)
       {
-         return Path.Combine(
-            Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), 
-            image);
-      }
+         ToastTemplateType toastType = DetermineToastType(notification.ToastLines.Count);
+         XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastType);
 
-      public void ShowToast(bool positiveNotification, String notificationMessage)
-      {
-         // Get a toast XML template
-         XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastImageAndText01);
 
-         // Fill in the text elements
          XmlNodeList stringElements = toastXml.GetElementsByTagName("text");
-         stringElements[0].AppendChild(toastXml.CreateTextNode(notificationMessage));
+         for(int i = 0; i < notification.ToastLines.Count; i++)
+         {
+            stringElements[i].AppendChild(toastXml.CreateTextNode(notification.ToastLines.ElementAt(i)));
+         }
 
-         //// Specify the absolute path to an image
-         string imagePath = "";
-         if(positiveNotification)
-         {
-            imagePath = "file:///" + GetImagePath(@"Resources\checkmark.jpg");
-         }
-         else
-         {
-            imagePath = "file:///" + GetImagePath(@"Resources\redXMark.jpg");
-         }
+         string imagePath = GetNotificationImagePath(notification.ToastStatus);
 
          XmlNodeList imageElements = toastXml.GetElementsByTagName("image");
          imageElements[0].Attributes.GetNamedItem("src").NodeValue = imagePath;
@@ -51,6 +39,40 @@ namespace VisualHelperPackage.Notificatons
          ToastNotificationManager.CreateToastNotifier(VISUAL_HELPER_NOTIFICATION).Show(toast);
       }
 
+      private ToastTemplateType DetermineToastType(int numberOfLines)
+      {
+         ToastTemplateType type = ToastTemplateType.ToastText01;
+         if( numberOfLines == 1)
+         {
+            type = ToastTemplateType.ToastImageAndText01;
+         }
+         else if(numberOfLines == 2 )
+         {
+            type = ToastTemplateType.ToastImageAndText02;
+         }
+         return type;
+      }
+
+      private string GetNotificationImagePath(bool positiveNotification)
+      {
+         string imagePath = "";
+         if (positiveNotification)
+         {
+            imagePath = "file:///" + GetImagePath(@"Resources\checkmark.jpg");
+         }
+         else
+         {
+            imagePath = "file:///" + GetImagePath(@"Resources\redXMark.jpg");
+         }
+         return imagePath;
+      }
+
+      private string GetImagePath(string image)
+      {
+         return Path.Combine(
+            Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+            image);
+      }
    }
 }
 

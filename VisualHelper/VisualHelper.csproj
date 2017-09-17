@@ -50,6 +50,7 @@
     <Compile Include="EditorIntegrations\IToastNotifier.cs" />
     <Compile Include="EditorIntegrations\IVsBuildEvents.cs" />
     <Compile Include="EditorIntegrations\IVsIntegrationsContainer.cs" />
+    <Compile Include="EditorIntegrations\VisualHelperToastNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

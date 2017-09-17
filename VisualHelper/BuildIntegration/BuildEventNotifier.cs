@@ -11,6 +11,9 @@ namespace VisualHelper.BuildIntegration
 
    public class BuildEventNotifier
    {
+      public const string BUILD_SUCCESS_STRING = "Build Successful";
+      public const string BUILD_FAILED_STRING = "Build Failed";
+
 
       IVsBuildEvents buildEvents_;
       IToastNotifier toastNotifier_;
@@ -51,17 +54,22 @@ namespace VisualHelper.BuildIntegration
 
       private void BuildEvents_BuildFinished(object sender, EventArgs e)
       {
+         VisualHelperToastNotification toastNotification = new VisualHelperToastNotification();
          if (buildState_.BuildSuccessful)
          {
-            toastNotifier_.ShowToast(true, "Build Finished");
+            toastNotification = new VisualHelperToastNotification(buildState_.BuildSuccessful, BUILD_SUCCESS_STRING);
          }
          else
          {
-            string buildFailedString = buildFailedFormatter_.FormatFailedBuild(buildState_.FailedProjects);
+            string formattedProjects = buildFailedFormatter_.FormatFailedBuild(buildState_.FailedProjects);
 
-            toastNotifier_.ShowToast(false, "Build Failed" + buildFailedString);
+            toastNotification = new VisualHelperToastNotification(
+               buildState_.BuildSuccessful, 
+               BUILD_FAILED_STRING,
+               formattedProjects);
          }
 
+         toastNotifier_.ShowToast(toastNotification);
       }
 
    }

@@ -35,9 +35,12 @@ namespace TestVisualHelper.BuildIntegration
       [Test]
       public void WillNotifyBuildFinishedSuccessfully()
       {
+         VisualHelperToastNotification expectedNotification = new VisualHelperToastNotification(
+            true, BuildEventNotifier.BUILD_SUCCESS_STRING);
+
          vsBuildEvents_.Raise(x => x.BuildFinished += null, new EventArgs());
 
-         toastNotifier_.Verify(x => x.ShowToast(true, "Build Finished"));
+         toastNotifier_.Verify(x => x.ShowToast(expectedNotification));
       }
 
       [Test]
@@ -102,10 +105,12 @@ namespace TestVisualHelper.BuildIntegration
          CreatePatient(buildState_);
          string formattedBuildFailed = RandomString.Generate(1);
          MakeBuildFailedFormatterReturn(formattedBuildFailed);
+         VisualHelperToastNotification expectedNotification = new VisualHelperToastNotification(
+            false, BuildEventNotifier.BUILD_FAILED_STRING, formattedBuildFailed);
 
          vsBuildEvents_.Raise(x => x.BuildFinished += null, new EventArgs());
 
-         toastNotifier_.Verify(x => x.ShowToast(false, "Build Failed" + formattedBuildFailed));
+         toastNotifier_.Verify(x => x.ShowToast(expectedNotification));
       }
 
       private void CreatePatient(
