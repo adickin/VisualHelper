@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuildIntegration\BuildEnvironmentVariableInjector.cs" />
     <Compile Include="BuildIntegration\BuildFailedFormatter.cs" />
     <Compile Include="BuildIntegration\BuildIntegrationContainer.cs" />
     <Compile Include="BuildIntegration\BuildState.cs" />
