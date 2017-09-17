@@ -48,6 +48,7 @@
     <Compile Include="BuildIntegration\IBuildFailedFormatter.cs" />
     <Compile Include="Container\VisualHelperBusinessLogicContainer.cs" />
     <Compile Include="BuildIntegration\BuildEventNotifier.cs" />
+    <Compile Include="EditorIntegrations\ILogger.cs" />
     <Compile Include="EditorIntegrations\IToastNotifier.cs" />
     <Compile Include="EditorIntegrations\IVsBuildEvents.cs" />
     <Compile Include="EditorIntegrations\IVsIntegrationsContainer.cs" />

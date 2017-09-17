@@ -3,6 +3,7 @@ using EnvDTE80;
 using Microsoft.VisualStudio.Shell.Interop;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,20 +23,20 @@ namespace VisualHelperPackage.EditorIntegrations
 
          VSBuildEvents = EnvDte.Events.BuildEvents;
 
+
+         VsOutputWindow = serviceProvider.GetService(typeof(SVsOutputWindow)) as IVsOutputWindow;
+
          status =
-            (EnvDte != null);// &&
-            //(buildStatusCallback_ != null);
+            (EnvDte != null) &&
+            (VSBuildEvents != null) &&
+            (VsOutputWindow != null);
 
-         if(!status)
-         {
-            System.Console.WriteLine(
-               "ERROR: Unable to acquire visual studio services required");
-         }
-         else
-         {
-            System.Console.WriteLine("Successfully acquired visual studio services.");
-
-         }
+         Debug.WriteLine(
+            "Services:" +
+            "\nEnvDte: " + (EnvDte != null) +
+            "\nVSBuildEvents: " + (VSBuildEvents != null) +
+            "\nVsOutputWindow: " + (VsOutputWindow != null)
+            );
 
          return status;
       }
@@ -43,5 +44,8 @@ namespace VisualHelperPackage.EditorIntegrations
       public DTE EnvDte { get; private set; }
 
       public BuildEvents VSBuildEvents { get; private set; }
+
+      public IVsOutputWindow VsOutputWindow { get; private set; }
+
    }
 }
