@@ -32,9 +32,6 @@ namespace VisualHelperPackage.EditorIntegrations
             visualStudioServices.VSBuildEvents);
          toastNotifications_ = new WindowsToastNotifications(
             visualStudioServices.EnvDte);
-
-
-         logger_.LogDebug("first Logg");
       }
 
       public IVsBuildEvents VsBuildEvents()

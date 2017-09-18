@@ -15,15 +15,16 @@ namespace VisualHelperPackage.EditorIntegrations
       public const string LOGFILE_NAME = "VisualHelper.log";
       public const string VISUAL_HELPER_LOG_FOLDER = @"VisualHelper\Logs";
 
-
+      string pathToLogFileFolder_;
       string logFilePath_;
       FileStream logFileStream_;
 
       public VisualHelperFileSystemLogger()
       {
          string pathToUserFolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-         logFilePath_ = Path.Combine(pathToUserFolder, VISUAL_HELPER_LOG_FOLDER, LOGFILE_NAME);
-         //Initialize();
+         pathToLogFileFolder_ = Path.Combine(pathToUserFolder, VISUAL_HELPER_LOG_FOLDER);
+         logFilePath_ = Path.Combine(pathToLogFileFolder_, LOGFILE_NAME);
+         Initialize();
       }
 
       private bool Initialize()
@@ -32,6 +33,8 @@ namespace VisualHelperPackage.EditorIntegrations
 
          try
          {
+            Directory.CreateDirectory(pathToLogFileFolder_);
+
             logFileStream_ = new FileStream(
                logFilePath_, 
                FileMode.OpenOrCreate,
@@ -66,7 +69,7 @@ namespace VisualHelperPackage.EditorIntegrations
       {
          using (StreamWriter s = new StreamWriter(logFileStream_))
          {
-            //s.WriteLine("[" + DateTime.Now.ToString() + "] " + type + ": " + message + Environment.NewLine);
+            s.WriteLine("[" + DateTime.Now.ToString() + "] " + type + ": " + message + Environment.NewLine);
          }
       }
    }
