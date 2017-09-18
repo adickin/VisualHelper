@@ -52,6 +52,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="EditorIntegrations\VisualHelperFileSystemLogger.cs" />
+    <Compile Include="EditorIntegrations\VisualHelperLogger.cs" />
     <Compile Include="EditorIntegrations\VisualHelperOutputWindowLogger.cs" />
     <Compile Include="EditorIntegrations\VsBuildEventsWrapper.cs" />
     <Compile Include="EditorIntegrations\VsIntegrationsContainer.cs" />

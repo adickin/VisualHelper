@@ -23,7 +23,7 @@ namespace VisualHelperPackage.EditorIntegrations
          vsOutputWindow.CreatePane(ref outputWindowGuid, VISUAL_HELPER_OUTPUT_WINDOW_TITLE, 1, 1);
          vsOutputWindow.GetPane(ref outputWindowGuid, out outputWindowPane_);
       }
-
+      
       public void LogDebug(string message)
       {
          Log("Debug", message);

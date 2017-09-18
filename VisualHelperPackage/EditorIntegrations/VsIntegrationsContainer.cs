@@ -11,6 +11,8 @@ namespace VisualHelperPackage.EditorIntegrations
    public class VsIntegrationsContainer : IVsIntegrationsContainer
    {
       VisualHelperOutputWindowLogger outputWindowLogger_;
+      VisualHelperFileSystemLogger fileSystemLogger_;
+      VisualHelperLogger logger_;
 
       VsBuildEventsWrapper buildEventsWrapper_;
       WindowsToastNotifications toastNotifications_;
@@ -21,11 +23,18 @@ namespace VisualHelperPackage.EditorIntegrations
       {
          outputWindowLogger_ = new VisualHelperOutputWindowLogger(
             visualStudioServices.VsOutputWindow);
+         fileSystemLogger_ = new VisualHelperFileSystemLogger();
+         logger_ = new VisualHelperLogger(
+            fileSystemLogger_,
+            outputWindowLogger_);
 
          buildEventsWrapper_ = new VsBuildEventsWrapper(
             visualStudioServices.VSBuildEvents);
          toastNotifications_ = new WindowsToastNotifications(
             visualStudioServices.EnvDte);
+
+
+         logger_.LogDebug("first Logg");
       }
 
       public IVsBuildEvents VsBuildEvents()
@@ -36,6 +45,11 @@ namespace VisualHelperPackage.EditorIntegrations
       public IToastNotifier ToastNotifier()
       {
          return toastNotifications_;
+      }
+
+      public ILogger Logger()
+      {
+         return logger_;
       }
    }
 }

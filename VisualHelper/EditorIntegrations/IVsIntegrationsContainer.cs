@@ -11,5 +11,7 @@ namespace VisualHelper.EditorIntegrations
       IVsBuildEvents VsBuildEvents();
 
       IToastNotifier ToastNotifier();
+
+      ILogger Logger();
    }
 }

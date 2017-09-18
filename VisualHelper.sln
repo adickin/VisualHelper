@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisualHelper", "VisualHelpe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestVisualHelper", "TestVisualHelper\TestVisualHelper.csproj", "{49B0BCFD-E9B3-4B70-A044-E6C33858CCC3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toolkit", "Toolkit\Toolkit.csproj", "{4E1BA9C7-ACDD-483A-A4AA-4491B9E8CE4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestToolkit", "TestToolkit\TestToolkit.csproj", "{F6A5725A-5C5A-4D0C-8493-A18A317901A7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{49B0BCFD-E9B3-4B70-A044-E6C33858CCC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49B0BCFD-E9B3-4B70-A044-E6C33858CCC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49B0BCFD-E9B3-4B70-A044-E6C33858CCC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E1BA9C7-ACDD-483A-A4AA-4491B9E8CE4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E1BA9C7-ACDD-483A-A4AA-4491B9E8CE4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E1BA9C7-ACDD-483A-A4AA-4491B9E8CE4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E1BA9C7-ACDD-483A-A4AA-4491B9E8CE4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6A5725A-5C5A-4D0C-8493-A18A317901A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6A5725A-5C5A-4D0C-8493-A18A317901A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6A5725A-5C5A-4D0C-8493-A18A317901A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6A5725A-5C5A-4D0C-8493-A18A317901A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
