@@ -41,10 +41,10 @@ namespace VisualHelperPackage
    /// </remarks>
    [PackageRegistration(UseManagedResourcesOnly = false)]
    [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)] // Info on this package for Help/About
-   [Guid(VisualHelperPackage.PackageGuidString)]
+   [Guid(VisualHelperVsix.PackageGuidString)]
    [ProvideAutoLoad("ADFC4E64-0397-11D1-9F4E-00A0C911004F")]
    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
-   public sealed class VisualHelperPackage : Package
+   public sealed class VisualHelperVsix : Package
    {
       /// <summary>
       /// VSPackage1 GUID string.
@@ -54,7 +54,7 @@ namespace VisualHelperPackage
       /// <summary>
       /// Initializes a new instance of the <see cref="VSPackage1"/> class.
       /// </summary>
-      public VisualHelperPackage()
+      public VisualHelperVsix()
       {
          // Inside this method you can place any initialization code that does not require
          // any Visual Studio service because at this point the package object is created but
