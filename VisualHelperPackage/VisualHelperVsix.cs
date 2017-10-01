@@ -44,6 +44,8 @@ namespace VisualHelperPackage
    [Guid(VisualHelperVsix.PackageGuidString)]
    [ProvideAutoLoad("ADFC4E64-0397-11D1-9F4E-00A0C911004F")]
    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
+   [ProvideMenuResource("Menus.ctmenu", 1)]
+   [ProvideToolWindow(typeof(VisualHelperPackage.Gui.EnvironmentVariableToolWindow))]
    public sealed class VisualHelperVsix : Package
    {
       /// <summary>
@@ -80,6 +82,7 @@ namespace VisualHelperPackage
 
          visualHelperBusinessLogicContainer_ = new VisualHelperBusinessLogicContainer(
             visualStudioIntegrationsContainer_);
+          VisualHelperPackage.Gui.EnvironmentVariableToolWindowCommand.Initialize(this);
       }
 
       #endregion
