@@ -4,8 +4,9 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace VisualHelperPackage.Gui
+namespace VisualHelper.Gui
 {
+   using Presentation;
    using System.Diagnostics.CodeAnalysis;
    using System.Windows;
    using System.Windows.Controls;
@@ -15,27 +16,23 @@ namespace VisualHelperPackage.Gui
    /// </summary>
    public partial class EnvironmentVariableToolWindowControl : UserControl
    {
+      IEnvironmentVariableToolWindowPresenter presenter_;
+
       /// <summary>
       /// Initializes a new instance of the <see cref="EnvironmentVariableToolWindowControl"/> class.
       /// </summary>
       public EnvironmentVariableToolWindowControl()
       {
          this.InitializeComponent();
+
       }
 
-      /// <summary>
-      /// Handles click on the button by displaying a message box.
-      /// </summary>
-      /// <param name="sender">The event sender.</param>
-      /// <param name="e">The event args.</param>
-      [SuppressMessage("Microsoft.Globalization", "CA1300:SpecifyMessageBoxOptions", Justification = "Sample code")]
-      [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:ElementMustBeginWithUpperCaseLetter", 
-         Justification = "Default event handler naming pattern")]
-      private void button1_Click(object sender, RoutedEventArgs e)
+      public void AttachToPresenter(IEnvironmentVariableToolWindowPresenter presenter)
       {
-         MessageBox.Show(
-             string.Format(System.Globalization.CultureInfo.CurrentUICulture, "Invoked '{0}'", this.ToString()),
-             "EnvironmentVariableToolWindow");
+         presenter_ = presenter;
+
+         wEnvironmentVariableTableDataGrid.DataContext = presenter_.EnvironmentVariableDataContext();
       }
+
    }
 }

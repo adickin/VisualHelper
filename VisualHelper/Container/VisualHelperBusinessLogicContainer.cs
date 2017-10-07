@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VisualHelper.BuildIntegration;
 using VisualHelper.EditorIntegrations;
+using VisualHelper.Presentation;
 
 namespace VisualHelper.Container
 {
@@ -14,6 +15,8 @@ namespace VisualHelper.Container
 
       BuildIntegrationContainer buildIntegrationContainer_;
 
+      public PresentationContainer presentationContainer_;
+
       public VisualHelperBusinessLogicContainer(
          IVsIntegrationsContainer vsIntegrationsContainer )
       {
@@ -21,7 +24,11 @@ namespace VisualHelper.Container
 
          buildIntegrationContainer_ = new BuildIntegrationContainer(
             vsIntegrationsContainer_.VsBuildEvents(),
-            vsIntegrationsContainer_.ToastNotifier());
+            vsIntegrationsContainer_.ToastNotifier(),
+            vsIntegrationsContainer_.Logger());
+
+         presentationContainer_ = new PresentationContainer(
+            buildIntegrationContainer_);
       }
    }
 }

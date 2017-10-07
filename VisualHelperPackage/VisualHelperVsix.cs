@@ -19,6 +19,7 @@ using System.Windows.Forms;
 using VisualHelperPackage.EditorIntegrations;
 using VisualHelper.Container;
 using VisualHelperPackage.Notificatons;
+using VisualHelperPackage.Gui;
 
 namespace VisualHelperPackage
 {
@@ -82,7 +83,25 @@ namespace VisualHelperPackage
 
          visualHelperBusinessLogicContainer_ = new VisualHelperBusinessLogicContainer(
             visualStudioIntegrationsContainer_);
-          VisualHelperPackage.Gui.EnvironmentVariableToolWindowCommand.Initialize(this);
+
+
+         visualStudioServices_.EnvDte.Events.DTEEvents.OnStartupComplete += DTEEvents_OnStartupComplete;
+      }
+
+      private void DTEEvents_OnStartupComplete()
+      {
+         SetupToolWindows();
+      }
+
+      private void SetupToolWindows()
+      {
+         VisualHelperPackage.Gui.EnvironmentVariableToolWindowCommand.Initialize(this);
+         ToolWindowPane window = this.FindToolWindow(typeof(EnvironmentVariableToolWindow), 0, true);
+
+         EnvironmentVariableToolWindow environmentVariableToolWindow = (EnvironmentVariableToolWindow)window;
+
+         environmentVariableToolWindow.windowControl_.AttachToPresenter(
+            visualHelperBusinessLogicContainer_.presentationContainer_.EnvironmentVariableToolWindowPresenter);
       }
 
       #endregion
