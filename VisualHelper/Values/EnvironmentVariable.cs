@@ -10,34 +10,34 @@ namespace VisualHelper.Values
    public class EnvironmentVariable : INotifyPropertyChanged
    {
 
-      string variableName;
-      string variableValue;
+      string variableName_;
+      string variableValue_;
 
       public event PropertyChangedEventHandler PropertyChanged;
 
       public EnvironmentVariable()
       {
-         variableName = "";
-         variableValue = "";
+         variableName_ = "";
+         variableValue_ = "";
       }
 
       public EnvironmentVariable(
          string variableName,
          string variableValue)
       {
-         this.variableName = variableName;
-         this.variableValue = variableValue;
+         variableName_ = variableName;
+         this.variableValue_ = variableValue;
       }
 
       public string VariableName
       {
          get
          {
-            return variableName;
+            return variableName_;
          }
          set
          {
-            variableName = value;
+            variableName_ = value;
 
             OnPropertyChanged("VariableName");
          }
@@ -46,11 +46,11 @@ namespace VisualHelper.Values
       {
          get
          {
-            return variableValue;
+            return variableValue_;
          }
          set
          {
-            variableValue = value;
+            variableValue_ = value;
             OnPropertyChanged("VariableValue");
          }
       }

@@ -18,12 +18,13 @@ namespace VisualHelperPackage.EditorIntegrations
       string pathToLogFileFolder_;
       string logFilePath_;
       FileStream logFileStream_;
+      StreamWriter streamWriter_;
 
       public VisualHelperFileSystemLogger()
       {
          string pathToUserFolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
          pathToLogFileFolder_ = Path.Combine(pathToUserFolder, VISUAL_HELPER_LOG_FOLDER);
-         logFilePath_ = Path.Combine(pathToLogFileFolder_, LOGFILE_NAME);
+         logFilePath_ = Path.Combine(pathToLogFileFolder_, DateTime.Now.ToString("yyyy-dd-M--HH-mm-ss-") + LOGFILE_NAME);
          Initialize();
       }
 
@@ -40,6 +41,9 @@ namespace VisualHelperPackage.EditorIntegrations
                FileMode.OpenOrCreate,
                FileAccess.Write, 
                FileShare.Read);
+
+            streamWriter_ = new StreamWriter(logFileStream_);
+            streamWriter_.AutoFlush = true;
          }
          catch(Exception e)
          {
@@ -67,10 +71,11 @@ namespace VisualHelperPackage.EditorIntegrations
 
       private void Log(string type, string message)
       {
-         using (StreamWriter s = new StreamWriter(logFileStream_))
-         {
-            s.WriteLine("[" + DateTime.Now.ToString() + "] " + type + ": " + message + Environment.NewLine);
-         }
+         streamWriter_.Write("[" + DateTime.Now.ToString() + "] " + type + ": " + message + Environment.NewLine);
+         //using (StreamWriter s = new StreamWriter(logFileStream_))
+         //{
+         //   s.WriteLine("[" + DateTime.Now.ToString() + "] " + type + ": " + message + Environment.NewLine);
+         //}
       }
    }
 }

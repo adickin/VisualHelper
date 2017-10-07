@@ -84,6 +84,7 @@ namespace VisualHelperPackage
          visualHelperBusinessLogicContainer_ = new VisualHelperBusinessLogicContainer(
             visualStudioIntegrationsContainer_);
 
+         VisualHelperPackage.Gui.EnvironmentVariableToolWindowCommand.Initialize(this);
 
          visualStudioServices_.EnvDte.Events.DTEEvents.OnStartupComplete += DTEEvents_OnStartupComplete;
       }
@@ -95,11 +96,9 @@ namespace VisualHelperPackage
 
       private void SetupToolWindows()
       {
-         VisualHelperPackage.Gui.EnvironmentVariableToolWindowCommand.Initialize(this);
+         //Environment Variable tool window.
          ToolWindowPane window = this.FindToolWindow(typeof(EnvironmentVariableToolWindow), 0, true);
-
-         EnvironmentVariableToolWindow environmentVariableToolWindow = (EnvironmentVariableToolWindow)window;
-
+         EnvironmentVariableToolWindow environmentVariableToolWindow = (EnvironmentVariableToolWindow) window;
          environmentVariableToolWindow.windowControl_.AttachToPresenter(
             visualHelperBusinessLogicContainer_.presentationContainer_.EnvironmentVariableToolWindowPresenter);
       }

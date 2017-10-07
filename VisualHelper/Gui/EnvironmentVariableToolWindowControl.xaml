@@ -20,8 +20,11 @@
                    x:FieldModifier="public" 
                    ColumnWidth="Auto">
             <DataGrid.Columns>
-               <DataGridTextColumn Header="Variable Name" Binding="{Binding VariableName}"/>
-               <DataGridTextColumn Header="Variable Value" Binding="{Binding VariableValue}"/>
+               <DataGridTextColumn Header="Variable Name" 
+                                   Binding="{Binding VariableName}"/>
+               <DataGridTextColumn Header="Variable Value" 
+                                   Binding="{Binding VariableValue}"
+                                   />
             </DataGrid.Columns>
          </DataGrid>
       </StackPanel>
