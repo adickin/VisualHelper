@@ -20,7 +20,7 @@ namespace VisualHelperPackage.EditorIntegrations
       {
          Guid outputWindowGuid = new Guid(Guids.VISUAL_HELPER_OUTPUT_WINDOW_GUID);
 
-         vsOutputWindow.CreatePane(ref outputWindowGuid, VISUAL_HELPER_OUTPUT_WINDOW_TITLE, 1, 1);
+         vsOutputWindow.CreatePane(ref outputWindowGuid, VISUAL_HELPER_OUTPUT_WINDOW_TITLE, 1, 0);
          vsOutputWindow.GetPane(ref outputWindowGuid, out outputWindowPane_);
       }
       

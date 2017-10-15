@@ -13,5 +13,7 @@ namespace VisualHelper.EditorIntegrations
       IToastNotifier ToastNotifier();
 
       ILogger Logger();
+
+      IVsGlobalsEditor GlobalsEditor();
    }
 }

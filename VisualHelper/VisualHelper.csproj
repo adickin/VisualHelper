@@ -59,6 +59,7 @@
     <Compile Include="EditorIntegrations\ILogger.cs" />
     <Compile Include="EditorIntegrations\IToastNotifier.cs" />
     <Compile Include="EditorIntegrations\IVsBuildEvents.cs" />
+    <Compile Include="EditorIntegrations\IVsGlobalsEditor.cs" />
     <Compile Include="EditorIntegrations\IVsIntegrationsContainer.cs" />
     <Compile Include="EditorIntegrations\VisualHelperToastNotification.cs" />
     <Compile Include="Presentation\EnvironmentVariableToolWindowPresenter.cs" />

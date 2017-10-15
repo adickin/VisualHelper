@@ -20,22 +20,24 @@ namespace VisualHelperPackage.EditorIntegrations
 
          EnvDte = serviceProvider.GetService(typeof(DTE)) as DTE;
 
-
          VSBuildEvents = EnvDte.Events.BuildEvents;
 
-
          VsOutputWindow = serviceProvider.GetService(typeof(SVsOutputWindow)) as IVsOutputWindow;
+
+         VisualStudioGlobals = EnvDte.Globals;
 
          status =
             (EnvDte != null) &&
             (VSBuildEvents != null) &&
-            (VsOutputWindow != null);
+            (VsOutputWindow != null) &&
+            (VisualStudioGlobals != null );
 
          Debug.WriteLine(
             "Services:" +
             "\nEnvDte: " + (EnvDte != null) +
             "\nVSBuildEvents: " + (VSBuildEvents != null) +
-            "\nVsOutputWindow: " + (VsOutputWindow != null)
+            "\nVsOutputWindow: " + (VsOutputWindow != null) +
+            "\nVisualStudioGlobals: " + (VisualStudioGlobals != null)
             );
 
          return status;
@@ -46,6 +48,8 @@ namespace VisualHelperPackage.EditorIntegrations
       public BuildEvents VSBuildEvents { get; private set; }
 
       public IVsOutputWindow VsOutputWindow { get; private set; }
+
+      public Globals VisualStudioGlobals { get; private set; }
 
    }
 }

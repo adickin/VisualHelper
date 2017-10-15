@@ -72,10 +72,6 @@ namespace VisualHelperPackage.EditorIntegrations
       private void Log(string type, string message)
       {
          streamWriter_.Write("[" + DateTime.Now.ToString() + "] " + type + ": " + message + Environment.NewLine);
-         //using (StreamWriter s = new StreamWriter(logFileStream_))
-         //{
-         //   s.WriteLine("[" + DateTime.Now.ToString() + "] " + type + ": " + message + Environment.NewLine);
-         //}
       }
    }
 }

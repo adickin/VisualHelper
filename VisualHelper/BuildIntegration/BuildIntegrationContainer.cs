@@ -19,22 +19,22 @@ namespace VisualHelper.BuildIntegration
       BuildEnvironmentVariableInjector environmentVariableInjector_;
 
       public BuildIntegrationContainer(
-         IVsBuildEvents buildEvents,
-         IToastNotifier toastNotifier,
-         ILogger logger)
+         IVsIntegrationsContainer vsIntegrationsContainer)
       {
          buildState_ = new BuildState();
          buildFailedFormatter_ = new BuildFailedFormatter();
          buildEventNotifier_ = new BuildEventNotifier(
-            buildEvents,
-            toastNotifier,
+            vsIntegrationsContainer.VsBuildEvents(),
+            vsIntegrationsContainer.ToastNotifier(),
             buildFailedFormatter_,
+            vsIntegrationsContainer.Logger(),
             buildState_);
 
          environmentVariableTableData_ = new EnvironmentVariableCollection();
          environmentVariableInjector_ = new BuildEnvironmentVariableInjector(
             environmentVariableTableData_,
-            logger);
+            vsIntegrationsContainer.GlobalsEditor(),
+            vsIntegrationsContainer.Logger());
       }
 
       public EnvironmentVariableCollection EnvironmentVariableData()

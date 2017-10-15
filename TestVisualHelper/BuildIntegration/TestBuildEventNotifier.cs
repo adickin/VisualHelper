@@ -17,6 +17,7 @@ namespace TestVisualHelper.BuildIntegration
       Mock<IVsBuildEvents> vsBuildEvents_;
       Mock<IToastNotifier> toastNotifier_;
       Mock<IBuildFailedFormatter> buildFailedFormatter_;
+      Mock<ILogger> logger_;
       BuildState buildState_;
 
       BuildEventNotifier patient_;
@@ -27,6 +28,7 @@ namespace TestVisualHelper.BuildIntegration
          vsBuildEvents_ = new Mock<IVsBuildEvents>();
          toastNotifier_ = new Mock<IToastNotifier>();
          buildFailedFormatter_ = new Mock<IBuildFailedFormatter>();
+         logger_ = new Mock<ILogger>();
          buildState_ = new BuildState();
 
          CreatePatient(buildState_);
@@ -120,6 +122,7 @@ namespace TestVisualHelper.BuildIntegration
             vsBuildEvents_.Object,
             toastNotifier_.Object,
             buildFailedFormatter_.Object,
+            logger_.Object,
             state);
       }
 

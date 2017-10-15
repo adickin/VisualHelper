@@ -63,6 +63,7 @@ namespace VisualHelperPackage
          // any Visual Studio service because at this point the package object is created but
          // not sited yet inside Visual Studio environment. The place to do all the other
          // initialization is the Initialize method.
+         servicesStatus_ = false;
          visualStudioServices_ = new VsServices();
       }
 
@@ -76,7 +77,7 @@ namespace VisualHelperPackage
       {
          base.Initialize();
 
-         visualStudioServices_.InitializeServices(this);
+         servicesStatus_ = visualStudioServices_.InitializeServices(this);
 
          visualStudioIntegrationsContainer_ = new VsIntegrationsContainer(
             visualStudioServices_);
@@ -101,12 +102,18 @@ namespace VisualHelperPackage
          EnvironmentVariableToolWindow environmentVariableToolWindow = (EnvironmentVariableToolWindow) window;
          environmentVariableToolWindow.windowControl_.AttachToPresenter(
             visualHelperBusinessLogicContainer_.presentationContainer_.EnvironmentVariableToolWindowPresenter);
+
+         if(!servicesStatus_)
+         {
+            MessageBox.Show("Visual Helper failed to load required visual studio services, some features may not work.");
+         }
       }
 
       #endregion
 
       #region Package Variables
 
+      bool servicesStatus_;
       VsServices visualStudioServices_;
 
       VsIntegrationsContainer visualStudioIntegrationsContainer_;

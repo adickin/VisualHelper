@@ -23,9 +23,7 @@ namespace VisualHelper.Container
          vsIntegrationsContainer_ = vsIntegrationsContainer;
 
          buildIntegrationContainer_ = new BuildIntegrationContainer(
-            vsIntegrationsContainer_.VsBuildEvents(),
-            vsIntegrationsContainer_.ToastNotifier(),
-            vsIntegrationsContainer_.Logger());
+            vsIntegrationsContainer_);
 
          presentationContainer_ = new PresentationContainer(
             buildIntegrationContainer_);

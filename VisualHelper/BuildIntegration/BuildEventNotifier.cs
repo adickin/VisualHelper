@@ -18,17 +18,20 @@ namespace VisualHelper.BuildIntegration
       IVsBuildEvents buildEvents_;
       IToastNotifier toastNotifier_;
       IBuildFailedFormatter buildFailedFormatter_;
+      ILogger logger_;
       BuildState buildState_;
 
       public BuildEventNotifier(
          IVsBuildEvents buildEvents,
          IToastNotifier toastNotifier,
          IBuildFailedFormatter buildFailedFormatter,
+         ILogger logger,
          BuildState buildState)
       {
          buildEvents_ = buildEvents;
          toastNotifier_ = toastNotifier;
          buildFailedFormatter_ = buildFailedFormatter;
+         logger_ = logger;
          buildState_ = buildState;
 
          buildEvents_.BuildStarted += BuildEvents__BuildStarted;
@@ -49,6 +52,8 @@ namespace VisualHelper.BuildIntegration
 
       private void BuildEvents__BuildStarted(object sender, EventArgs e)
       {
+         logger_.LogDebug("Build started: " + System.Diagnostics.Process.GetCurrentProcess().Id + " Name: " + System.Diagnostics.Process.GetCurrentProcess().ProcessName);
+
          buildState_.ClearState();
       }
 

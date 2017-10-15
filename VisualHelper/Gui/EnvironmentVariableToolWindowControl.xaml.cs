@@ -24,7 +24,6 @@ namespace VisualHelper.Gui
       public EnvironmentVariableToolWindowControl()
       {
          this.InitializeComponent();
-
       }
 
       public void AttachToPresenter(IEnvironmentVariableToolWindowPresenter presenter)

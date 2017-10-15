@@ -13,6 +13,7 @@ namespace VisualHelperPackage.EditorIntegrations
       VisualHelperOutputWindowLogger outputWindowLogger_;
       VisualHelperFileSystemLogger fileSystemLogger_;
       VisualHelperLogger logger_;
+      VsGlobalsEditor vsGlobalsEditor_;
 
       VsBuildEventsWrapper buildEventsWrapper_;
       WindowsToastNotifications toastNotifications_;
@@ -27,6 +28,9 @@ namespace VisualHelperPackage.EditorIntegrations
          logger_ = new VisualHelperLogger(
             fileSystemLogger_,
             outputWindowLogger_);
+         vsGlobalsEditor_ = new VsGlobalsEditor(
+            visualStudioServices.EnvDte,
+            visualStudioServices.VisualStudioGlobals);
 
          buildEventsWrapper_ = new VsBuildEventsWrapper(
             visualStudioServices.VSBuildEvents);
@@ -48,5 +52,11 @@ namespace VisualHelperPackage.EditorIntegrations
       {
          return logger_;
       }
+
+      public IVsGlobalsEditor GlobalsEditor()
+      {
+         return vsGlobalsEditor_;
+      }
+
    }
 }
